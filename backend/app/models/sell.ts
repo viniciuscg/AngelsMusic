@@ -1,5 +1,6 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
+import { SellStatus } from '../dto/enum.js'
 
 export default class Sell extends BaseModel {
   public static table  = "sell"
@@ -11,8 +12,11 @@ export default class Sell extends BaseModel {
   declare date: DateTime
 
   @column()
-  declare password: string
+  declare userId: number
   
   @column()
   declare price: number
+    
+  @column()
+  declare status: SellStatus
 }
