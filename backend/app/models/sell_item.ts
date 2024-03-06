@@ -12,13 +12,19 @@ export default class SellItem extends BaseModel {
   @column()
   declare quantity: number
 
+  @column()
+  declare productId: number
+
+  @column()
+  declare sellId: number
+
   @belongsTo(() => Product, {
-    foreignKey: "product_id"
+    foreignKey: "productId"
   })
   declare product: BelongsTo<typeof Product>
 
   @belongsTo(() => Sell, {
-    foreignKey: "sell_id"
+    foreignKey: "sellId"
   })
   declare sell: BelongsTo<typeof Sell>
   

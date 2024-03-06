@@ -11,8 +11,11 @@ export default class SubCategory extends BaseModel {
   @column()
   declare description: string
 
+  @column()
+  declare categoryId: number
+
   @belongsTo(() => Category, {
-    foreignKey: "category_id"
+    foreignKey: "categoryId"
   })
   declare category: BelongsTo<typeof Category>
 

@@ -7,7 +7,7 @@ export default class User extends BaseModel {
   declare id: number
 
   @column()
-  declare fullName: string | null
+  declare fullName: string
 
   @column()
   declare email: string

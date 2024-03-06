@@ -2,11 +2,11 @@ import Admin from "#models/admin";
 import { AdminDto } from "../dto/admin_dto.js";
 
 export default class AdminRepository {
-    async create(email: string, password: string){
+    async create(adm: Omit<AdminDto, "id">) {
         const admin = new Admin
 
-        admin.email = email
-        admin.password = password
+        admin.email = adm.email
+        admin.password = adm.password
 
         await admin.save()
         return admin

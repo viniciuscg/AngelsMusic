@@ -12,5 +12,7 @@ export default class Sell extends BaseModel {
 
   @column()
   declare password: string
-
+  
+  @column()
+  declare price: number
 }
