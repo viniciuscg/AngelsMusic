@@ -7,3 +7,8 @@ export interface ProductDto {
   price: number
   active: boolean
 }
+
+export interface DeactivateProductDto {
+  id: number
+  active: boolean
+}

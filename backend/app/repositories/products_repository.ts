@@ -1,5 +1,5 @@
 import Product from "#models/product"
-import { ProductDto } from "../dto/product_dto.js"
+import { DeactivateProductDto, ProductDto } from "../dto/product_dto.js"
 
 export default class ProductRepository {
     async create(product: Omit<ProductDto, "id">){
@@ -28,12 +28,23 @@ export default class ProductRepository {
         return findProduct
     }
 
-    async deactivate(data: ProductDto){
+    async deactivate(data: DeactivateProductDto){
         const findProduct = await Product.findOrFail(data.id) 
 
         findProduct.active = data.active
 
         await findProduct.save()
         return findProduct
+    }
+    
+    async get(id: number) {
+        const product = await Product
+            .query()
+            .where('id', id)
+            .preload('category')
+            .preload('subCategory')
+            .first()
+            
+        return product
     }
 }

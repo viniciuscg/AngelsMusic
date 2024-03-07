@@ -1,10 +1,20 @@
-import { DateTime } from "luxon"
-import { SellStatus } from "./enum.js"
-
 export interface SellDto {
   id: number
   price: number
-  date: DateTime
   userId: number
-  status: SellStatus
+  status: number 
+}
+
+export interface CreateSellDto {
+  price: number
+  userId: number
+  quantity: number
+}
+
+export interface UpdateSellDto {
+  status: number 
+}
+
+export interface GetSellDto {
+  id: number 
 }
