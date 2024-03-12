@@ -12,3 +12,4 @@ export interface DeactivateProductDto {
   id: number
   active: boolean
 }
+

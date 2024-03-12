@@ -17,8 +17,10 @@ export default class SellController {
     }
 
     async update({ request }: HttpContext){
-        const { status } = request.params()
-        const payload = await updateSellValidator.validate(status)
+        const { id } = request.params()
+        const data = request.all()
+        
+        const payload = await updateSellValidator.validate({...data, id})
         
         return this.sellService.update(payload)
     }
@@ -30,4 +32,3 @@ export default class SellController {
         return this.sellService.get(payload)
     }
 }
-

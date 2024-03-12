@@ -37,14 +37,21 @@ export default class ProductRepository {
         return findProduct
     }
     
-    async get(id: number) {
-        const product = await Product
+    async getMany(ids: number[]): Promise<Product[]> {
+        const products = await Product
             .query()
-            .where('id', id)
+            .whereIn('id', ids)
             .preload('category')
-            .preload('subCategory')
-            .first()
-            
+            .preload('subCategory');
+    
+        return products;
+    }
+
+    async get(data: number) {
+        const product = await Product
+        .query()
+        .where('id', data)
+
         return product
     }
 }

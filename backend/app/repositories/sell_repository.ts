@@ -12,10 +12,10 @@ export default class SellRepository {
         return sell
     }
     
-    async update(data: number){
-        const sell = new Sell
+    async updateStatus(id: number, status: number){
+        const sell = await Sell.findOrFail(id) 
 
-        sell.status = data
+        sell.status = status
 
         await sell.save()
         return sell
@@ -26,6 +26,15 @@ export default class SellRepository {
             .query()
             .where('id', data)
 
+        return sell
+    }
+
+    async updatePrice(id: number, price: number){
+        const sell = await Sell.findOrFail(id) 
+
+        sell.price = price
+
+        await sell.save()
         return sell
     }
 

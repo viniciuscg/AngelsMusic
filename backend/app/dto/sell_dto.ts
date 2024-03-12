@@ -6,15 +6,23 @@ export interface SellDto {
 }
 
 export interface CreateSellDto {
-  price: number
   userId: number
-  quantity: number
+  items: {
+    quantity: number
+    productId: number
+  }[]
 }
 
 export interface UpdateSellDto {
+  id: number 
   status: number 
 }
 
 export interface GetSellDto {
   id: number 
+}
+
+export interface UpdatePriceSellDto {
+  id: number
+  price: number
 }

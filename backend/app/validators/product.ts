@@ -11,6 +11,7 @@ export const createProductValidator = vine.compile(
         active: vine.boolean(),
     })
 )
+
 export const updateProductValidator = vine.compile(
     vine.object({
         id: vine.number().positive(),
