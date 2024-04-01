@@ -1,14 +1,14 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'sub_categories'
+  protected tableName = 'sub_category'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').notNullable()
+      table.increments('id').primary()
 
       table.string('description').notNullable()
-      table.float('categoryId').references('category.id').notNullable()
+      table.integer('category_id').references('id').inTable('category')
     })
   }
 

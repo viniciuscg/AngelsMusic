@@ -1,39 +1,42 @@
 import ProductService from "#services/products_service"
-import { createProductValidator, desactiveProductValidator, getProductValidator, updateProductValidator } from "#validators/product"
+import { createProductValidator, deactivateProductValidator, getProductValidator, updateProductValidator } from "#validators/product"
 import { HttpContext } from "@adonisjs/core/http"
 
-export default class ProductsController {
-    productService: ProductService
+export default class ProductController {
+  productService: ProductService
 
-    constructor() {
-        this.productService = new ProductService()
-    }
+  constructor() {
+    this.productService = new ProductService()
+  }
 
-    async create({ request }: HttpContext){
-        const data = request.all()
-        const payload = await createProductValidator.validate(data)
+  async create({ request }: HttpContext){
+    const data = request.all()
+    const payload = await createProductValidator.validate(data)
 
-        return this.productService.create(payload)
-    }
+    return this.productService.create(payload)
+  }
 
-    async update({ request }: HttpContext){
-        const data = request.all()
-        const payload = await updateProductValidator.validate(data)
-        
-        return this.productService.update(payload)
-    }
-
-    async deactivate({ request }: HttpContext){
-        const data = request.all()
-        const payload = await desactiveProductValidator.validate(data)
-        
-        return this.productService.deactivate(payload)
-    }
+  async update({ request }: HttpContext){
+    const { id } = request.params()
+    const data = request.all()
+    const payload = await updateProductValidator.validate({...data, id})
     
-    async get({ request }: HttpContext) {
-        const data = request.all()
-        const payload = await getProductValidator.validate(data)
+    return this.productService.update(payload)
+  }
 
-        return this.productService.get(payload.id)
-    }
+  async deactivate({ request }: HttpContext){
+    const { id } = request.params()
+    const data = request.all()
+
+    const payload = await deactivateProductValidator.validate({...data, id})
+    
+    return this.productService.deactivate(payload)
+  }
+  
+  async get({ request }: HttpContext) {
+    const { id } = request.params()
+    const payload = await getProductValidator.validate(id)
+
+    return this.productService.get(payload.id)
+  }
 }

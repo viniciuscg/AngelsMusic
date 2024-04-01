@@ -5,10 +5,10 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').notNullable()
+      table.increments('id').primary()
 
       table.dateTime('date').notNullable()
-      table.foreign('userId').references('user.id').notNullable()
+      table.integer('user_id').references('id').inTable('user')
       table.double('price').notNullable()
       table.integer('status').notNullable()
     })

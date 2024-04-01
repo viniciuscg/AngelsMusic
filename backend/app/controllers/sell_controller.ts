@@ -3,32 +3,32 @@ import { createSellValidator, getSellValidator, updateSellValidator } from "#val
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class SellController {
-    sellService: SellService
+  sellService: SellService
 
-    constructor() {
-        this.sellService = new SellService()
-    }
+  constructor() {
+    this.sellService = new SellService()
+  }
 
-    async create({ request }: HttpContext){
-        const data = request.all()
-        const payload = await createSellValidator.validate(data)
+  async create({ request }: HttpContext){
+    const data = request.all()
+    const payload = await createSellValidator.validate(data)
 
-        return this.sellService.create(payload)
-    }
+    return this.sellService.create(payload)
+  }
 
-    async update({ request }: HttpContext){
-        const { id } = request.params()
-        const data = request.all()
-        
-        const payload = await updateSellValidator.validate({...data, id})
-        
-        return this.sellService.update(payload)
-    }
- 
-    async get({ request }: HttpContext) {
-        const { id } = request.params()
-        const payload = await getSellValidator.validate(id)
+  async update({ request }: HttpContext){
+    const { id } = request.params()
+    const data = request.all()
+    
+    const payload = await updateSellValidator.validate({...data, id})
+    
+    return this.sellService.update(payload)
+  }
 
-        return this.sellService.get(payload)
-    }
+  async get({ request }: HttpContext) {
+    const { id } = request.params()
+    const payload = await getSellValidator.validate(id)
+
+    return this.sellService.get(payload)
+  }
 }

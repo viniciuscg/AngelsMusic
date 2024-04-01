@@ -1,34 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Catalog from './pages/catalog'
+import Detail from './pages/detail'
+import Home from './pages/home'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./index.css";
+import Login from './pages/login';
+import { ConfigProvider } from 'antd';
+import { theme } from './utils/theme';
+import { CategoryProvider } from './context/categoryContext';
+import AdmLogin from './pages/admLogin';
+import PrivateRoute from './components/privateRoute';
+import { AdminProvider } from './context/adminContext';
+import { UserProvider } from './context/userContext';
+import ProductAdmin from './pages/admin/productAdmin';
+import CategoryAdmin from './pages/admin/categoryAdmin';
+import HomeAdmin from './pages/admin/homeAdmin';
+import SellAdmin from './pages/admin/sellAdmin';
+import UserAdmin from './pages/admin/userAdmin';
+import { ProductProvider } from './context/productContext';
+import { SubCategoryProvider } from './context/subCategoryContext';
+import SubCategoryAdmin from './pages/admin/subCategoryAdmin';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+  {
+    path: "/detail",
+    element: <Detail/>,
+  },
+  {
+    path: "/catalog",
+    element: <Catalog/>,
+  },
+  {
+    path: "/admin",
+    element: <AdmLogin/>,
+  },
+  {
+    path: "/admin/home",
+    element: <PrivateRoute Component={<HomeAdmin/>}/>,
+  },
+  {
+    path: "/admin/product",
+    element: <PrivateRoute Component={<ProductAdmin/>}/>,
+  },
+  {
+    path: "/admin/category",
+    element: <PrivateRoute Component={<CategoryAdmin/>}/>,
+  },
+  {
+    path: "/admin/sub-category",
+    element: <PrivateRoute Component={<SubCategoryAdmin/>}/>,
+  },
+  {
+    path: "/admin/sell",
+    element: <PrivateRoute Component={<SellAdmin/>}/>,
+  },
+  {
+    path: "/admin/user",
+    element: <PrivateRoute Component={<UserAdmin/>}/>,
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ConfigProvider
+      theme={theme}
+    >
+      <ProductProvider>
+        <CategoryProvider>
+          <SubCategoryProvider>
+            <AdminProvider>
+              <UserProvider>
+                <RouterProvider router={router} />
+              </UserProvider>
+            </AdminProvider>
+          </SubCategoryProvider>
+        </CategoryProvider>
+      </ProductProvider>
+    </ConfigProvider>
   )
 }
 
