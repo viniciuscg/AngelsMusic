@@ -1,19 +1,19 @@
 import { api } from "../api";
-import { IProduct, IProductCreate } from "./productType";
+import { IProduct, IProductCreate, IProductUpdate } from "./productType";
 
 export default class ProductService {
   static async create(data: IProductCreate) {
-    const response = await api.post('/product', data)
+    const response = await api.post<IProduct>('/product', data)
     return response.data
   }
 
-  static async update(data: IProduct) {
-    const response = await api.put(`/product${data.id}`, data)
+  static async update(data: IProductUpdate) {
+    const response = await api.put(`/product/${data.id}`, data)
     return response.data
   }
 
-  static async deactivate(data: IProduct) {
-    const response = await api.post(`/product/deactivate${data.id}`, data)
+  static async deactivate(id: number) {
+    const response = await api.put(`/product/deactivate/${id}`)
     return response.data
   }
 
@@ -23,7 +23,7 @@ export default class ProductService {
   }
 
   static async getAll() {
-    const response = await api.get('/product')
+    const response = await api.get<IProduct[]>('/product')
     return response.data
   }
 }

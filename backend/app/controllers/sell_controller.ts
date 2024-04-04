@@ -31,4 +31,12 @@ export default class SellController {
 
     return this.sellService.get(payload)
   }
+
+  async getTotalValue() {
+    return this.sellService.getTotalValue()
+  }
+
+  async getTotalOders() {
+    return this.sellService.getTotalOrders()
+  }
 }

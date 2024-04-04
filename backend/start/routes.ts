@@ -18,14 +18,17 @@ router.get('/user', [UserController, 'loggedUser']).use(middleware.auth({
 
 //Routes products
 router.post('/product', [ProductController, 'create'])
-router.put('/product', [ProductController, 'update'])
-router.post('/product/deactivate', [ProductController, 'deactivate'])
-router.get('/product', [ProductController, 'get'])
+router.put('/product/:id', [ProductController, 'update'])
+router.put('/product/deactivate/:id', [ProductController, 'deactivate'])
+router.get('/product/:id', [ProductController, 'get'])
+router.get('/product', [ProductController, 'getAll'])
 
 //Routes sells
 router.post('/sell', [SellController, 'create'])
 router.put('/sell', [SellController, 'update'])
 router.get('/sell', [SellController, 'get'])
+router.get('/sell/total-oders', [SellController, 'getTotalOders'])
+router.get('/sell/total-value', [SellController, 'getTotalValue'])
 
 //Routes Category
 router.post('/category', [CategoryController, 'create'])

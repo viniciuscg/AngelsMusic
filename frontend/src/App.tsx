@@ -22,6 +22,7 @@ import UserAdmin from './pages/admin/userAdmin';
 import { ProductProvider } from './context/productContext';
 import { SubCategoryProvider } from './context/subCategoryContext';
 import SubCategoryAdmin from './pages/admin/subCategoryAdmin';
+import { SellProvider } from './context/sellContext';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/home",
-    element: <PrivateRoute Component={<HomeAdmin/>}/>,
+    element: <PrivateRoute Component={<HomeAdmin/>} />,
   },
   {
     path: "/admin/product",
@@ -80,9 +81,11 @@ function App() {
         <CategoryProvider>
           <SubCategoryProvider>
             <AdminProvider>
-              <UserProvider>
-                <RouterProvider router={router} />
-              </UserProvider>
+              <SellProvider>
+                <UserProvider>
+                  <RouterProvider router={router} />
+                </UserProvider>
+              </SellProvider>
             </AdminProvider>
           </SubCategoryProvider>
         </CategoryProvider>

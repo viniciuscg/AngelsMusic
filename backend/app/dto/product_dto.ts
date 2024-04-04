@@ -16,12 +16,21 @@ export interface CreateProductDto {
   description: string 
   img: string 
   price: number
-  category_id: number
-  subCategory_id: number
+  categoryId: number
+  subCategoryId: number
 }
 
 export interface DeactivateProductDto {
   id: number
-  active: boolean
 }
 
+export interface UpdateProductDto {
+  id: number
+  model: string
+  quantity: number
+  description: string 
+  img: string 
+  price: number
+  categoryId: number
+  subCategoryId: number
+}

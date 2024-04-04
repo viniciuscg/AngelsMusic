@@ -24,7 +24,6 @@ interface IProps {
   children: ReactNode
 }
 
-
 function AdminLayout({ children }: IProps) {
 
   const navigate = useNavigate()
@@ -36,10 +35,10 @@ function AdminLayout({ children }: IProps) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible >
-        <div className="demo-logo-vertical" />
         <Menu 
           defaultSelectedKeys={['1']} 
-          mode="inline" items={items}
+          mode="inline" 
+          items={items}
           onClick={({ key }) => handleMenuClick(key) } 
         />
       </Sider>
@@ -55,5 +54,5 @@ function AdminLayout({ children }: IProps) {
   )
 }
   
-  export default AdminLayout
+export default AdminLayout
   

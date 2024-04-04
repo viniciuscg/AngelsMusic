@@ -1,4 +1,4 @@
-import { Button, Space, Table, Typography } from 'antd';
+import { Button, Input, Space, Table, Typography } from 'antd';
 import AdminLayout from '../../../components/adminLayout';
 import type { TableColumnsType } from 'antd';
 import ModalComponent from '../../../components/modal';
@@ -78,6 +78,7 @@ function SubCategoryAdmin() {
       >
         Add a sub category
       </Button>
+      <Input placeholder="Search sub category" />
       <Table  columns={columns} dataSource={subCategories} />
       <ModalComponent isModalOpen={isModalOpen} onClose={handleCancel}>
         <SubCategoryForm id={subCategoryId} />

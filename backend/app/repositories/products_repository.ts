@@ -1,5 +1,5 @@
 import Product from "#models/product"
-import { CreateProductDto, DeactivateProductDto, ProductDto } from "../dto/product_dto.js"
+import { CreateProductDto, UpdateProductDto } from "../dto/product_dto.js"
 
 export default class ProductRepository {
   async create(product: CreateProductDto){
@@ -10,28 +10,33 @@ export default class ProductRepository {
     productCreate.img = product.img
     productCreate.price = product.price 
     productCreate.quantity = product.quantity
+    productCreate.categoryId = product.categoryId
+    productCreate.subCategoryId = product.subCategoryId
+    productCreate.active = true
 
     await productCreate.save()
     return productCreate
   }
 
-  async update(product: ProductDto){
+  async update(product: UpdateProductDto){
     const findProduct = await Product.findOrFail(product.id) 
 
-    findProduct.price = product.price
-    findProduct.description = product.description
-    findProduct.img = product.img
     findProduct.model = product.model
     findProduct.quantity = product.quantity
+    findProduct.description = product.description
+    findProduct.price = product.price
+    findProduct.img = product.img
+    findProduct.categoryId = product.categoryId
+    findProduct.subCategoryId = product.subCategoryId
 
     await findProduct.save()
     return findProduct
   }
 
-  async deactivate(data: DeactivateProductDto){
-    const findProduct = await Product.findOrFail(data.id) 
+  async deactivate(id: number){
+    const findProduct = await Product.findOrFail(id) 
 
-    findProduct.active = data.active
+    findProduct.active = !findProduct.active
 
     await findProduct.save()
     return findProduct
@@ -42,7 +47,7 @@ export default class ProductRepository {
         .query()
         .whereIn('id', ids)
         .preload('category')
-        .preload('subCategory');
+        .preload('sub_category');
 
     return products;
   }
@@ -53,5 +58,19 @@ export default class ProductRepository {
     .where('id', data)
 
     return product
+  }
+
+  async getAll() {
+    return await Product
+      .query()
+      .preload('category')
+      .preload('sub_category')
+  }
+
+  async getTotalValue() {
+    return await Product
+      .query()
+      .preload('category')
+      .preload('sub_category')
   }
 }

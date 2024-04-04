@@ -12,8 +12,9 @@ export default class extends BaseSchema {
       table.string('description').notNullable()
       table.string('img').notNullable()
       table.integer('price').notNullable()
+      table.integer('active').notNullable()
       table.integer('category_id').references('id').inTable('category')
-      table.integer('subCategory_id').references('id').inTable('sub_category')
+      table.integer('sub_category_id').references('id').inTable('sub_category')
     })
   }
 

@@ -1,4 +1,4 @@
-import { CreateProductDto, DeactivateProductDto, ProductDto } from "../dto/product_dto.js"
+import { CreateProductDto, UpdateProductDto } from "../dto/product_dto.js"
 import ProductRepository from "../repositories/products_repository.js"
 
 export default class ProductService {
@@ -11,15 +11,19 @@ export default class ProductService {
     return this.productRepository.create(data)
   }
 
-  async update(data: ProductDto){
+  async update(data: UpdateProductDto){
     return this.productRepository.update(data)
   }
 
-  async deactivate(data: DeactivateProductDto){
-    return this.productRepository.deactivate(data)
+  async deactivate(id: number){
+    return this.productRepository.deactivate(id)
   }
   
   async get(id: number) {
     return this.productRepository.get(id)
   }
+ 
+  async getAll() {
+    return await this.productRepository.getAll()
+  } 
 }

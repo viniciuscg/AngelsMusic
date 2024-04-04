@@ -2,19 +2,18 @@ import type { ThemeConfig } from 'antd'
 
 export const theme: ThemeConfig  = {
   token: {
-    colorPrimary: "#212121",
-    colorInfo: "#212121",
-    colorBgBase: "#212121",
-    colorTextBase: "#f6f6f6",
-    colorLink: "#0c1023",
+    colorPrimary: '#2F2F2F',
+    colorInfo: '#4A4A4A',
+    colorBgBase: '#1E1E1E',
+    colorTextBase: '#FFFFFF',
   },
   components: {
     Layout: {
-      siderBg: "#212121",
-      triggerBg: "#212121",
+      siderBg: '#1E1E1E',
+      triggerBg: '#2F2F2F',
     },
     Card: {
-      headerBg: "#212121"
-    }
-  }
+      headerBg: '#2F2F2F',
+    },
+  },
 }

@@ -7,8 +7,8 @@ export const createProductValidator = vine.compile(
     description: vine.string(), 
     img: vine.string(), 
     price: vine.number().positive(),
-    category_id: vine.number().positive(),
-    subCategory_id: vine.number().positive(),
+    categoryId: vine.number().positive(),
+    subCategoryId: vine.number().positive(),
   })
 )
 
@@ -20,7 +20,6 @@ export const updateProductValidator = vine.compile(
     description: vine.string(), 
     img: vine.string(), 
     price: vine.number().positive(),
-    active: vine.boolean(),
     categoryId: vine.number().positive(),
     subCategoryId: vine.number().positive(),
   })
@@ -29,7 +28,6 @@ export const updateProductValidator = vine.compile(
 export const deactivateProductValidator = vine.compile(
   vine.object({
     id: vine.number().positive(),
-    active: vine.boolean(),
   })
 )
 

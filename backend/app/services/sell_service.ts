@@ -32,4 +32,22 @@ export default class SellService {
   async get(data: GetSellDto) {
     return this.sellRepository.get(data.id)
   }
+
+  async getTotalValue() {
+    const sells = await this.sellRepository.getTotalValue()
+    var totalValue = 0
+    sells.forEach(element => {
+      totalValue += element.price
+    })
+    return totalValue
+  }
+
+  async getTotalOrders() {
+    const sells = await this.sellRepository.getTotalOrders()
+    var totalOders = 0
+    sells.forEach(element => {
+      totalOders += element.id 
+    })
+    return totalOders
+  }
 }

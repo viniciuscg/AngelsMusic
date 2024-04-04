@@ -1,42 +1,36 @@
 import AdminLayout from '../../../components/adminLayout';
-import { Button, Image, Space, Switch, Table, Typography } from 'antd';
+import { Button, Image, Input, Popconfirm, Space, Switch, Table, Typography } from 'antd';
 import type { TableColumnsType } from 'antd';
 import ModalComponent from '../../../components/modal';
 import { useProductContext } from '../../../context/productContext';
 import { useState } from 'react';
 import ProductForm from '../../../components/forms/productForm';
-
-interface IDataType {
-  id: number
-  model: string
-  quantity: number
-  description: string 
-  img: string 
-  price: number
-  active: boolean
-}
+import { IProduct } from '../../../services/product/productType';
 
 function ProductAdmin() {
-  const [visible, setVisible] = useState(false);
-  const { products, setIsModalOpen, isModalOpen } = useProductContext()
+  const [visible, setVisible] = useState(false)
+  const [productId, setProductId] = useState<number>(0)
+  const { products, setIsModalOpen, isModalOpen, deactivate } = useProductContext()
 
   const createCategory = () => {
     setIsModalOpen(true)
   };
-
-  const updateCategory = (id: number) => {
-    setIsModalOpen(true)
+  
+  const deactivateProduct = (product: IProduct) => {
+    deactivate(product.id)
+    console.log(product.active);
   };
 
-  const deleteButton = (id: number) => {
-
+  const updateCategory = (id: number) => {
+    setProductId(id)
+    setIsModalOpen(true)
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const columns: TableColumnsType<IDataType> = [
+  const columns: TableColumnsType<IProduct> = [
     {
       key: 'id',
       title: 'id',
@@ -63,7 +57,7 @@ function ProductAdmin() {
       key: 'img',
       title: 'img',
       dataIndex: 'img',
-      render: (_: any, product: IDataType) => (
+      render: (_: any, product: IProduct) => (
         <Space>
           <Typography.Link onClick={() => setVisible(true)}>Image</Typography.Link>
           <Image
@@ -91,16 +85,42 @@ function ProductAdmin() {
       key: 'active',
       title: 'active',
       dataIndex: 'active',
-      render: (_: any, product: IDataType) => (
-        <Switch />
+      render: (_: any, product: IProduct) => (
+        <Popconfirm
+          placement="bottom"
+          title={"desactive"}
+          description={"are you sure?"}
+          okText="Yes"
+          cancelText="No"
+          onConfirm={() => deactivateProduct(product)}
+        >
+          <Switch value={product.active}/>
+        </Popconfirm>
       )
     },
     {
+      key: 'category.id',
+      title: 'category',
+      render: (_: any, product: IProduct) => (
+        <Space>
+          <span>{product.category.name}</span>
+        </Space>
+      ),
+    },
+    {
+      key: 'sub_category.id',
+      title: 'sub category',
+      render: (_: any, product: IProduct) => (
+        <Space>
+          <span>{product.sub_category.description}</span>
+        </Space>
+      ),
+    },
+    {
       title: 'Action',
-      render: (_: any, category: IDataType) => (
+      render: (_: any, category: IProduct) => (
         <Space>
           <Typography.Link onClick={() => updateCategory(category.id)}>Edit</Typography.Link>
-          <Typography.Link onClick={() => deleteButton(category.id)}>Delete</Typography.Link>
         </Space>
       ),
     },
@@ -115,9 +135,10 @@ function ProductAdmin() {
       >
         Add a Product
       </Button>
+      <Input placeholder="Search product" />
       <Table  columns={columns} dataSource={products}/>
       <ModalComponent isModalOpen={isModalOpen} onClose={handleCancel} >
-        <ProductForm/>
+        <ProductForm id={productId}/>
       </ModalComponent>
     </AdminLayout>
   )

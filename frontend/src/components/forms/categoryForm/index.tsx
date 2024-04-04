@@ -9,12 +9,12 @@ interface IProps {
 function CategoryForm(props: IProps) {
   const { update, create, setIsModalOpen } = useCategoryContext()
     
-  const onFinish: FormProps<ICreateCategory>["onFinish"] = (values) => {
+  const onFinish: FormProps<ICreateCategory>["onFinish"] = async (values) => {
     if(!props.id){
-      create({category: values.category})
+      await create({category: values.category})
     }
     else{
-      update({id: props.id, name: values.category})
+      await update({id: props.id, name: values.category})
     }
     setIsModalOpen(false)
   };

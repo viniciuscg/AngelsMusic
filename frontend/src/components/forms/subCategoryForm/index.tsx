@@ -2,7 +2,6 @@ import { Button, Form, FormProps, Input, Select } from "antd"
 import { useSubCategoryContext } from "../../../context/subCategoryContext";
 import { ICreateSubCategory } from "../../../services/subCategory/subCategoryType";
 import { useCategoryContext } from "../../../context/categoryContext";
-import { useEffect } from "react";
 
 interface IProps {
   id: number
@@ -12,11 +11,11 @@ function SubCategoryForm(props: IProps) {
   const { create, setIsModalOpen, update, getAll } = useSubCategoryContext()
   const { categories } = useCategoryContext()
     
-  const onFinish: FormProps<ICreateSubCategory>["onFinish"] = (values) => {
+  const onFinish: FormProps<ICreateSubCategory>["onFinish"] = async (values) => {
     if(!props.id){
-      create({categoryId: values.categoryId, description: values.description})
+      await create({categoryId: values.categoryId, description: values.description})
     }else{
-      update({id: props.id, description: values.description, categoryId: values.categoryId })
+      await update({id: props.id, description: values.description, categoryId: values.categoryId })
     }
     setIsModalOpen(false)
     getAll()
@@ -35,12 +34,12 @@ function SubCategoryForm(props: IProps) {
       autoComplete="off"
     >
       <Form.Item<ICreateSubCategory>
-        label="Description"
+        label="description"
         name="description"
       >
         <Input/>
       </Form.Item>
-      <Form.Item name="categoryId">
+      <Form.Item label="category" name="categoryId">
         <Select
           style={{ width: 120 }}
         >

@@ -25,9 +25,9 @@ export default class SubCategoryController {
   }
 
   async getRelated({ request }: HttpContext){
-    const { categoryid } = request.params()
+    const { id } = request.params()
 
-    const payload = await getSubCategoryValidator.validate(categoryid)
+    const payload = await getSubCategoryValidator.validate({id})
     return this.subCategoryService.getRelated(payload.id)
   }
 

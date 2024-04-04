@@ -9,7 +9,7 @@ export interface IProduct {
   price: number
   active: boolean
   category: ICategory
-  subCategory: {id: number, description: string, categoryId: number}
+  sub_category: {id: number, description: string, categoryId: number}
 }
   
 export interface IDeactivateProduct {
@@ -18,6 +18,18 @@ export interface IDeactivateProduct {
 }
   
 export interface IProductCreate {
+  model: string
+  quantity: number
+  description: string 
+  img: string 
+  price: number
+  categoryId: number
+  subCategoryId: number
+}
+
+  
+export interface IProductUpdate {
+  id: number
   model: string
   quantity: number
   description: string 

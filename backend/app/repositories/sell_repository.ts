@@ -38,4 +38,13 @@ export default class SellRepository {
     return sell
   }
 
+  async getTotalValue() {
+    return await Sell
+      .query()
+  }
+
+  async getTotalOrders() {
+    return await Sell
+      .query()
+  }
 }

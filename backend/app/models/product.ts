@@ -24,13 +24,13 @@ export default class Product extends BaseModel {
   @column()
   declare price: number
 
-  @column()
+  @column({ columnName: "category_id" })
   declare categoryId: number 
 
-  @column()
+  @column({ columnName: "sub_category_id" })
   declare subCategoryId: number
 
-  @column({ serialize: Boolean })
+  @column({ serialize: Boolean,  })
   declare active: boolean
 
   @belongsTo(() => Category, {
@@ -41,5 +41,5 @@ export default class Product extends BaseModel {
   @belongsTo(() => SubCategory, {
     foreignKey: "subCategoryId"
   })
-  declare subCategory: BelongsTo<typeof SubCategory>
+  declare sub_category: BelongsTo<typeof SubCategory>
 }

@@ -26,11 +26,10 @@ export default class ProductController {
 
   async deactivate({ request }: HttpContext){
     const { id } = request.params()
-    const data = request.all()
 
-    const payload = await deactivateProductValidator.validate({...data, id})
+    const payload = await deactivateProductValidator.validate({id})
     
-    return this.productService.deactivate(payload)
+    return this.productService.deactivate(payload.id)
   }
   
   async get({ request }: HttpContext) {
@@ -38,5 +37,10 @@ export default class ProductController {
     const payload = await getProductValidator.validate(id)
 
     return this.productService.get(payload.id)
+  }
+  
+  async getAll() {
+    const data = await this.productService.getAll()
+    return data
   }
 }

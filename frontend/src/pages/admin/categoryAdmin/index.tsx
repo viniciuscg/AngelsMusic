@@ -1,4 +1,4 @@
-import { Button, Space, Table, Typography } from 'antd';
+import { Button, Input, Space, Table, Typography } from 'antd';
 import AdminLayout from '../../../components/adminLayout';
 import { useCategoryContext } from '../../../context/categoryContext';
 import type { TableColumnsType } from 'antd';
@@ -12,7 +12,7 @@ interface IDataType {
 }
 
 function CategoryAdmin() {
-  const [categoryId, setCategoryId] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState<number>(0)
   const { categories, deleteCategory, setIsModalOpen, isModalOpen } = useCategoryContext()
 
   const createCategory = () => {
@@ -64,6 +64,7 @@ function CategoryAdmin() {
       >
         Add a category
       </Button>
+      <Input placeholder="Search category" />
       <Table  columns={columns} dataSource={categories}/>
       <ModalComponent isModalOpen={isModalOpen} onClose={handleCancel} >
         <CategoryForm id={categoryId} />
